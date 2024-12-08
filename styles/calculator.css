@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.overlay {
+    background-color: var(--dark-mode);
+}
+
+.container-calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 50px;
+    font-weight: 100;
+    color: var(--text-primary-light);
+}
+
+.container-display {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100% 20%;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.container-buttons {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 80px);
+    grid-auto-rows: 80px;
+
+    width: 350px;
+    max-width: 100%;
+    grid-gap: 5px;
+}
+
+.display {
+    background-color: var(--background-btn);
+    border: none;
+    border-radius: 6px;
+    padding-left: 20px;
+    padding-right: 15px;
+
+    grid-column: 1 / 4;
+
+    font-family: 'Kanit', sans-serif;
+    font-style: oblique;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--text-placeholder);
+
+    user-select: none;
+}
+
+.display:focus {
+    outline: none;
+}
+
+.clean-btn {
+    background-color: var(--background-btn-clean);
+    color: var(--text-primary-light);
+    box-shadow: 2px 2px 1px var(--box-shadow-btn-clean);
+    border: none;
+    border-radius: 6px;
+
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.clean-btn:active {
+    box-shadow: 2px 2px 1px var(--box-shadow-btn-clean-active);
+}
+
+.clean-btn:hover {
+    background-color: var(--background-btn-clean-hover);
+}
+
+.button {
+    background-color: var(--background-btn);
+    color: var(--text-primary-light);
+    box-shadow: 2px 2px 1px var(--box-shadow-btn);
+    border: none;
+    border-radius: 6px;
+
+    font-family: 'Rubik 80s Fade', cursive;
+    font-size: 20px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.button:active {
+    box-shadow: 1px 1px 1px var(--box-shadow-btn);
+}
+
+.button:hover {
+    background-color: var(--background-btn-hover);
+}
+
+.container-footer {
+    display: flex;
+    width: 350px;
+    height: fit-content;
+    gap: 5px;
+}
+
+.git-hub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 1px 6px 1px 6px;
+
+    background-color: var(--background-btn-footer);
+    transition: .2s linear;
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 120px;
+
+    cursor: pointer;
+}
+
+.git-hub > a {
+    text-decoration: none;
+    color: var(--text-primary-light);
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+}
+
+.git-hub:hover {
+    background-color: var(--background-btn-footer-hover);
+    transition: .2s linear;
+}
+
+.git-hub::before {
+    content: "";
+    background: url("../assets/GitHub.svg");
+    width: 18px;
+    height: 18px;
+}
+
+.switcher-theme {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 1px 6px 1px 6px;
+
+    background-color: var(--background-btn-footer);
+    transition: .2s linear;
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 170px;
+
+    color: var(--text-primary-light);
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.switcher-theme:hover {
+    background-color: var(--background-btn-footer-hover);
+    transition: .2s linear;
+}
+
+.switcher-theme::before {
+    content: "";
+    background: url("../assets/Sun.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+
+}

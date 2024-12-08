@@ -1,0 +1,18 @@
+:root {
+    --dark-mode: #141313;
+
+    --background-btn: #2f3332;
+    --box-shadow-btn: #393d3c;
+    --background-btn-hover: #2a2d2c;
+
+    --background-btn-clean: #b71c1c;
+    --box-shadow-btn-clean: #b02020;
+    --background-btn-clean-hover: #961a1a;
+    --box-shadow-btn-clean-active: #771616;
+
+    --background-btn-footer: #272424;
+    --background-btn-footer-hover: #1c1919;
+
+    --text-placeholder: #555857;
+    --text-primary-light: #ffffff;
+}
