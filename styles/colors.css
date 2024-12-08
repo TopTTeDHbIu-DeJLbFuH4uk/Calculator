@@ -13,6 +13,12 @@
     --background-btn-footer: #272424;
     --background-btn-footer-hover: #1c1919;
 
+    --light-mode: #1ce7dd;
+
+    --background-btn-light: #ffffff;
+    --background-btn-hover-light: #d2faf8;
+
+
     --text-placeholder: #555857;
     --text-primary-light: #ffffff;
 }

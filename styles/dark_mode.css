@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 10px;
     padding: 0;
     overflow: hidden;
 }
@@ -13,21 +13,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
     height: 100vh;
 }
 
 .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-
+    color: var(--text-primary-light);
     font-family: "Montserrat", sans-serif;
     font-size: 50px;
     font-weight: 100;
-    color: var(--text-primary-light);
+
+    margin: 0;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -41,8 +36,6 @@ input[type="number"]::-webkit-outer-spin-button {
     grid-template-columns: repeat(4, 80px);
     grid-auto-rows: 80px;
 
-    width: 350px;
-    max-width: 100%;
     grid-gap: 5px;
 }
 
@@ -56,7 +49,6 @@ input[type="number"]::-webkit-outer-spin-button {
     grid-column: 1 / 4;
 
     font-family: 'Kanit', sans-serif;
-    font-style: oblique;
     font-size: 20px;
     font-weight: 300;
     color: var(--text-placeholder);

@@ -2,7 +2,7 @@
   "name": "Calculator",
   "version": "1.0.0",
   "description": "",
-  "main": "scripts/index.js",
+  "main": "scripts/switcher_theme.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

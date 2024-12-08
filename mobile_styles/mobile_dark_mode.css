@@ -1,66 +1,25 @@
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
 
     .container-calculator {
-        position: fixed;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     .title {
-        font-size: 25px;
-    }
-
-    .container-buttons {
-        grid-template-columns: repeat(4, 40px);
-        grid-auto-rows: 40px;
-        grid-gap: 3px;
-    }
-
-    .display {
-        padding: 0 10px 0 10px;
-
-        font-size: 15px;
-        font-weight: 400;
-    }
-
-    .clean-btn {
-        font-size: 14px;
-    }
-
-    .button {
-        font-size: 14px;
+        font-size: 30px;
     }
 
     .container-footer {
-        gap: 3px;
-        padding-top: 2px;
+        flex-direction: column;
     }
 
     .git-hub {
-        width: 60px;
-        height: 25px;
-        gap: 0;
-        padding: 1px 1px 1px 5px;
-    }
-
-    .git-hub > a {
-        font-size: 12px;
-    }
-
-    .git-hub::before {
-        display: none;
+        width: 170px;
+        height: 30px;
+        padding: 1px 8px 1px 6px;
     }
 
     .switcher-theme {
-        width: 90px;
-        height: 25px;
-        gap: 0;
-        padding: 1px 1px 1px 5px;
-
-        font-size: 12px;
-    }
-
-    .switcher-theme::before {
-        display: none;
+        height: 30px;
     }
 
 }
