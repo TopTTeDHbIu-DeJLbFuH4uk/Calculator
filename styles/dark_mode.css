@@ -30,12 +30,6 @@ body {
     color: var(--text-primary-light);
 }
 
-.container-display {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 100% 20%;
-}
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -155,7 +149,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .git-hub::before {
     content: "";
-    background: url("../assets/GitHub.svg");
+    background: url("../assets/GitHub.svg") no-repeat center;
     width: 18px;
     height: 18px;
 }
@@ -187,8 +181,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .switcher-theme::before {
     content: "";
-    background: url("../assets/Sun.svg") no-repeat;
+    background: url("../assets/Sun.svg") no-repeat center;
     width: 24px;
     height: 24px;
-
 }
