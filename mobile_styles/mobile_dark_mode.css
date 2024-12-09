@@ -9,15 +9,15 @@
         font-size: 30px;
     }
 
-    .container-footer {
-        flex-direction: column;
-        width: 200%;
-    }
+    /*.container-footer {*/
+    /*    flex-direction: column;*/
+    /*    width: 200%;*/
+    /*}*/
 
-    .git-hub {
-        padding: 1px 6px 1px 8px;
-        width: clamp(10%, 220%, 220%);
-    }
+    /*.git-hub {*/
+    /*    padding: 1px 6px 1px 8px;*/
+    /*    width: clamp(10%, 220%, 220%);*/
+    /*}*/
 
     .git-hub > a {
         padding-left: 3px;
