@@ -9,14 +9,15 @@ body {
 }
 
 .container-calculator {
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    height: clamp(10vh, 60vh, 100vh);
-    width: clamp(10%, 100%, 100%);
 
+    height: clamp(10%, 100%, 100%);
+    width: clamp(10%, 100%, 100%);
 }
 
 .title {
@@ -24,6 +25,7 @@ body {
     font-family: "Montserrat", sans-serif;
     font-size: 50px;
     font-weight: 100;
+
 
     margin: 0;
 }
