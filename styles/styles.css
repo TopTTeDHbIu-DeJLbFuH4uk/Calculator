@@ -232,7 +232,7 @@ body.light-theme .button:hover {
 /* Mobile */
 @media screen and (max-width: 768px) {
 
-    .main-container {
+    body {
         justify-content: flex-start;
     }
 
