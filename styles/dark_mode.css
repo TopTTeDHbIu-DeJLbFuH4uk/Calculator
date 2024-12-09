@@ -16,6 +16,8 @@ body {
 }
 
 .container-calculator {
+    justify-content: center;
+    align-items: center;
     max-width: 100%;
     width: 350px;
     height: 100%;
@@ -75,7 +77,7 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 6px;
     padding: 0;
 
-    font-family: 'Comfortaa', cursive;
+    font-family: "Segoe UI";
     font-size: 20px;
 
     cursor: pointer;
@@ -98,7 +100,6 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 6px;
     padding: 0;
 
-    font-family: 'Rubik 80s Fade', cursive;
     font-size: 20px;
 
     cursor: pointer;
@@ -120,7 +121,7 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 80%;
     max-width: 350px;
 
-    max-height: 40px;
+    max-height: 80px;
     height: 100%;
 
     padding-top: 5px;
@@ -129,7 +130,8 @@ input[type="number"]::-webkit-outer-spin-button {
 .git-hub {
     display: flex;
     align-items: center;
-    gap: 8px;
+    height: 40px;
+    gap: 5px;
     padding: 1px 6px 1px 6px;
 
     background-color: var(--background-btn-footer);
@@ -143,8 +145,8 @@ input[type="number"]::-webkit-outer-spin-button {
 .git-hub > a {
     text-decoration: none;
     color: var(--text-primary-light);
-    font-family: 'Comfortaa', cursive;
     font-size: 20px;
+    padding-top: 2px;
 }
 
 .git-hub:hover {
@@ -155,6 +157,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .git-hub::before {
     content: "";
     background: url("../assets/GitHub.svg") no-repeat center;
+    background-size: contain;
     width: 18px;
     height: 18px;
 }
@@ -162,7 +165,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .switcher-theme {
     display: flex;
     align-items: center;
-    gap: 8px;
+    height: 40px;
+
+    gap: 5px;
     padding: 1px 6px 1px 6px;
 
     background-color: var(--background-btn-footer);
@@ -171,7 +176,6 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 6px;
 
     color: var(--text-primary-light);
-    font-family: 'Comfortaa', cursive;
     font-size: 20px;
 
     cursor: pointer;
@@ -185,6 +189,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .switcher-theme::before {
     content: "";
     background: url("../assets/Sun.svg") no-repeat center;
+    background-size: contain;
     width: 24px;
     height: 24px;
 }
@@ -205,19 +210,19 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 
     .git-hub {
-        padding: 4px;
+        height: 40px;
     }
 
     .git-hub > a {
-        font-size: 14px;
+        padding-top: 3px;
     }
 
     .git-hub::before {
-        padding-left: 8px;
+        padding-left: 4px;
     }
 
     .switcher-theme {
-        font-size: 14px;
+        height: 40px;
     }
 
 }
