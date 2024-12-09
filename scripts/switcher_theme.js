@@ -1,12 +1,8 @@
-const darkModeEl = document.querySelector('.dark-mode');
-const switcherTheme = document.querySelector('.switcher-theme');
+const switcherThemeEl = document.querySelector('.switcher-theme');
 
-switcherTheme.addEventListener('click', () => {
+switcherThemeEl.addEventListener('click', () => {
 
-   if (darkModeEl.getAttribute('href') === 'styles/dark_mode.css') {
-      darkModeEl.setAttribute('href', 'styles/light_mode.css');
-   } else {
-      darkModeEl.setAttribute('href', 'styles/dark_mode.css');
-   }
+    document.body.classList.toggle('overlay-light');
+    switcherThemeEl.classList.toggle('moon');
 
 });

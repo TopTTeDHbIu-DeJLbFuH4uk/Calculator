@@ -3,8 +3,9 @@ body {
     padding: 0;
 }
 
-.overlay {
+.overlay-dark {
     background-color: var(--dark-mode);
+    transition: .5s
 }
 
 .main-container {
@@ -121,7 +122,7 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 80%;
     max-width: 350px;
 
-    max-height: 80px;
+    max-height: 40px;
     height: 100%;
 
     padding-top: 5px;
@@ -143,10 +144,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .git-hub > a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: var(--text-primary-light);
     font-size: 20px;
     padding-top: 2px;
+    width: 100%;
+    height: 100%;
 }
 
 .git-hub:hover {
@@ -158,7 +163,7 @@ input[type="number"]::-webkit-outer-spin-button {
     content: "";
     background: url("../assets/GitHub.svg") no-repeat center;
     background-size: contain;
-    width: 18px;
+    width: 25px;
     height: 18px;
 }
 
@@ -194,6 +199,29 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 24px;
 }
 
+.moon::before {
+    content: "";
+    background: url("../assets/Moon.svg") no-repeat center;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+}
+
+/* Light mode */
+.overlay-light {
+    background-color: var(--light-mode);
+    transition: .5s
+}
+
+body.overlay-light .display {
+    background-color: var(--background-btn-light);
+}
+
+body.overlay-light .button {
+    background-color: var(--background-btn-light);
+    color: var(--text-primary-dark);
+}
+
 @media screen and (max-width: 768px) {
 
     .main-container {
@@ -202,27 +230,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
     .title {
         font-size: 30px;
-    }
-
-    .container-footer {
-        flex-direction: column;
-        max-width: 40%;
-    }
-
-    .git-hub {
-        height: 40px;
-    }
-
-    .git-hub > a {
-        padding-top: 3px;
-    }
-
-    .git-hub::before {
-        padding-left: 4px;
-    }
-
-    .switcher-theme {
-        height: 40px;
     }
 
 }
