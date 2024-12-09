@@ -1,5 +1,5 @@
 body {
-    margin: 10px;
+    margin: 0;
     padding: 0;
     overflow: hidden;
 }
@@ -16,6 +16,7 @@ body {
 
     height: clamp(10vh, 60vh, 100vh);
     width: clamp(10%, 100%, 100%);
+
 }
 
 .title {
@@ -35,13 +36,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .container-buttons {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(4, 40%);
-    grid-auto-rows: 40%;
+    grid-template-columns: repeat(4, 21.3%);
+    grid-auto-rows: 38.7%;
 
-    /*max-height: 40%;*/
-    /*max-width: 60%;*/
-    width: clamp(10%, 10%, 80%);
-    height: clamp(2%, 35%, 80%);
+    width: clamp(10%, 19.8%, 19.8%);
+    height: clamp(20%, 38.7%, 38.7%);
 
     grid-gap: 5px;
 }
@@ -50,8 +49,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: var(--background-btn);
     border: none;
     border-radius: 6px;
-    padding-left: 20px;
-    padding-right: 15px;
+    padding: 0 15px 0 20px;
 
     grid-column: 1 / 4;
 
@@ -73,6 +71,7 @@ input[type="number"]::-webkit-outer-spin-button {
     box-shadow: 2px 2px 1px var(--box-shadow-btn-clean);
     border: none;
     border-radius: 6px;
+    padding: 0;
 
     font-family: 'Comfortaa', cursive;
     font-size: 20px;
@@ -95,6 +94,7 @@ input[type="number"]::-webkit-outer-spin-button {
     box-shadow: 2px 2px 1px var(--box-shadow-btn);
     border: none;
     border-radius: 6px;
+    padding: 0;
 
     font-family: 'Rubik 80s Fade', cursive;
     font-size: 20px;
@@ -113,8 +113,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .container-footer {
     display: flex;
-    width: 350px;
-    height: fit-content;
+    height: 100%;
+    width: 380%;
     gap: 5px;
 }
 
@@ -128,8 +128,9 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: .2s linear;
     border: none;
     border-radius: 6px;
-    height: 40px;
-    width: 120px;
+
+    width: clamp(10%, 150%, 150%);
+    height: clamp(10%, 50%, 50%);
 
     cursor: pointer;
 }
@@ -163,8 +164,9 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: .2s linear;
     border: none;
     border-radius: 6px;
-    height: 40px;
-    width: 170px;
+
+    width: clamp(10%, 220%, 220%);
+    height: clamp(10%, 50%, 50%);
 
     color: var(--text-primary-light);
     font-family: 'Comfortaa', cursive;

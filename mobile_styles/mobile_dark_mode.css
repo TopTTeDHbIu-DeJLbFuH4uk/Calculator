@@ -10,16 +10,21 @@
 
     .container-footer {
         flex-direction: column;
+        width: 200%;
     }
 
     .git-hub {
-        width: 170px;
-        height: 30px;
-        padding: 1px 8px 1px 6px;
+        padding: 1px 6px 1px 8px;
+        width: clamp(10%, 220%, 220%);
+    }
+
+    .git-hub > a {
+        padding-left: 3px;
+        font-size: 12px;
     }
 
     .switcher-theme {
-        height: 30px;
+        font-size: 12px;
     }
 
 }
