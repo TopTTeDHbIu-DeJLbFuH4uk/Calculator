@@ -1,38 +1,36 @@
-:root {
-    --dark-mode: #141313;
+.dark {
+    --theme: #141313;
 
     --background-btn: #2f3332;
     --box-shadow-btn: #393d3c;
     --background-btn-hover: #2a2d2c;
 
-    --background-btn-clean: #b71c1c;
+    --btn-clean: #b71c1c;
     --box-shadow-btn-clean: #b02020;
-    --background-btn-clean-hover: #961a1a;
-    --box-shadow-btn-clean-active: #771616;
+    --clean-hover: #961a1a;
+    --clean-active: #771616;
 
-    --background-btn-footer: #272424;
-    --background-btn-footer-hover: #1c1919;
+    --btn-footer: #272424;
+    --btn-footer-hover: #1c1919;
 
     --text-placeholder: #555857;
+    --text-primary: #ffffff;
     --text-primary-light: #ffffff;
 
-    --light-mode: #1ce7dd;
+    --btn-light: #ffffff;
+    --btn-hover: #d2faf8;
 
-    --background-btn-light: #ffffff;
-    --background-btn-hover-light: #d2faf8;
-
-    --background-btn-clean-hover-light: #984543;
+    --btn-clean-hover: #984543;
 
     --text-primary-dark: #2f3332;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        --light-mode: #1ce7dd;
+.light {
 
-        --background-btn-light: #ffffff;
-        --background-btn-hover-light: #d2faf8;
+    --theme: #1ce7dd;
 
-        --text-primary-dark: #2f3332;
-    }
+    --background-btn: #ffffff;
+    --background-btn-hover: #d2faf8;
+
+    --text-primary: #2f3332;
 }

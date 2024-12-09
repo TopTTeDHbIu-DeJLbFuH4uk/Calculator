@@ -11,7 +11,7 @@ body {
 }
 
 .overlay-dark {
-    background-color: var(--dark-mode);
+    background-color: var(--theme);
     transition: .5s
 }
 
@@ -70,7 +70,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .clean-btn {
-    background-color: var(--background-btn-clean);
+    background-color: var(--btn-clean);
     color: var(--text-primary-light);
     box-shadow: 2px 2px 1px var(--box-shadow-btn-clean);
     border: none;
@@ -85,16 +85,16 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .clean-btn:active {
-    box-shadow: 2px 2px 1px var(--box-shadow-btn-clean-active);
+    box-shadow: 2px 2px 1px var(--clean-active);
 }
 
 .clean-btn:hover {
-    background-color: var(--background-btn-clean-hover);
+    background-color: var(--clean-hover);
 }
 
 .button {
     background-color: var(--background-btn);
-    color: var(--text-primary-light);
+    color: var(--text-primary);
     box-shadow: 2px 2px 1px var(--box-shadow-btn);
     border: none;
     border-radius: 6px;
@@ -134,7 +134,7 @@ input[type="number"]::-webkit-outer-spin-button {
     gap: 5px;
     padding: 1px 6px 1px 6px;
 
-    background-color: var(--background-btn-footer);
+    background-color: var(--btn-footer);
     transition: .2s linear;
     border: none;
     border-radius: 6px;
@@ -154,7 +154,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .git-hub:hover {
-    background-color: var(--background-btn-footer-hover);
+    background-color: var(--btn-footer-hover);
     transition: .2s linear;
 }
 
@@ -174,7 +174,7 @@ input[type="number"]::-webkit-outer-spin-button {
     gap: 5px;
     padding: 1px 6px 1px 6px;
 
-    background-color: var(--background-btn-footer);
+    background-color: var(--btn-footer);
     transition: .2s linear;
     border: none;
     border-radius: 6px;
@@ -186,7 +186,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .switcher-theme:hover {
-    background-color: var(--background-btn-footer-hover);
+    background-color: var(--btn-footer-hover);
     transition: .2s linear;
 }
 
@@ -204,29 +204,6 @@ input[type="number"]::-webkit-outer-spin-button {
     background-size: contain;
     width: 24px;
     height: 24px;
-}
-
-/* Light mode */
-body.light-theme {
-    background-color: var(--light-mode);
-}
-
-body.light-theme .display {
-    background-color: var(--background-btn-light);
-    color: var(--text-primary-dark);
-}
-
-body.light-theme .clean-btn:hover {
-    background-color: var(--background-btn-clean-hover-light);
-}
-
-body.light-theme .button {
-    background-color: var(--background-btn-light);
-    color: var(--text-primary-dark);
-}
-
-body.light-theme .button:hover {
-    background-color: var(--background-btn-hover-light);
 }
 
 /* Mobile */
