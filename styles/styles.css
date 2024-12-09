@@ -2,14 +2,7 @@ body {
     margin: 0 15px;
     padding: 0;
     overflow: hidden;
-}
 
-.overlay-dark {
-    background-color: var(--dark-mode);
-    transition: .5s
-}
-
-.main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,9 +10,12 @@ body {
     height: 100vh;
 }
 
+.overlay-dark {
+    background-color: var(--dark-mode);
+    transition: .5s
+}
+
 .container-calculator {
-    justify-content: center;
-    align-items: center;
     max-width: 100%;
     width: 350px;
     height: 100%;
@@ -27,6 +23,9 @@ body {
 }
 
 .title {
+    display: flex;
+    justify-content: center;
+
     color: var(--text-primary-light);
     font-family: "Montserrat", sans-serif;
     font-size: clamp(35px, 6vw, 50px);
@@ -44,7 +43,6 @@ input[type="number"]::-webkit-outer-spin-button {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    flex-grow: 1;
     width: 100%;
     height: 100%;
 
@@ -209,20 +207,29 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* Light mode */
-.overlay-light {
+body.light-theme {
     background-color: var(--light-mode);
-    transition: .5s
 }
 
-body.overlay-light .display {
-    background-color: var(--background-btn-light);
-}
-
-body.overlay-light .button {
+body.light-theme .display {
     background-color: var(--background-btn-light);
     color: var(--text-primary-dark);
 }
 
+body.light-theme .clean-btn:hover {
+    background-color: var(--background-btn-clean-hover-light);
+}
+
+body.light-theme .button {
+    background-color: var(--background-btn-light);
+    color: var(--text-primary-dark);
+}
+
+body.light-theme .button:hover {
+    background-color: var(--background-btn-hover-light);
+}
+
+/* Mobile */
 @media screen and (max-width: 768px) {
 
     .main-container {

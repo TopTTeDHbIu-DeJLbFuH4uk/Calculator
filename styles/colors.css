@@ -13,13 +13,26 @@
     --background-btn-footer: #272424;
     --background-btn-footer-hover: #1c1919;
 
+    --text-placeholder: #555857;
+    --text-primary-light: #ffffff;
+
     --light-mode: #1ce7dd;
 
     --background-btn-light: #ffffff;
     --background-btn-hover-light: #d2faf8;
 
+    --background-btn-clean-hover-light: #984543;
 
-    --text-placeholder: #555857;
-    --text-primary-light: #ffffff;
     --text-primary-dark: #2f3332;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --light-mode: #1ce7dd;
+
+        --background-btn-light: #ffffff;
+        --background-btn-hover-light: #d2faf8;
+
+        --text-primary-dark: #2f3332;
+    }
 }
