@@ -17,8 +17,19 @@ displayEl.addEventListener('keydown', (e) => {
 buttonEls.forEach(button => {
     button.addEventListener('click', () => {
 
-        const valueStr = button.textContent;
+        if (displayEl.value === 'Error') {
+            return;
+        }
+
         const operators = ['+', '-', '*', '/'];
+        const pointOperator = ['.'];
+        const valueStr = button.innerText;
+
+        if (!displayEl.value) {
+            if (operators.includes(valueStr) || pointOperator.includes(valueStr)) {
+                return;
+            }
+        }
 
         if (valueStr === '=') {
 
@@ -53,6 +64,10 @@ const calc = (firstValueStr, operator, secondValueStr) => {
 
     let result;
 
+    if (isNaN(secondValue)) {
+        return;
+    }
+
     switch (operator) {
         case '+':
             result = firstValue + secondValue;
@@ -72,6 +87,7 @@ const calc = (firstValueStr, operator, secondValueStr) => {
             break;
         default:
             displayEl.value = 'Error';
+
     }
 
     displayEl.value = result;
