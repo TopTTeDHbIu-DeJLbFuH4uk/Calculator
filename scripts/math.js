@@ -47,10 +47,16 @@ buttonEls.forEach(button => {
 
         // blockSpamOperators function
         if (operators.includes(valueStr)) {
-            blockSpamOperators();
-            if (!blockSpamOperators()) {
+            blockSpamOperators(valueStr);
+            if (!blockSpamOperators(valueStr)) {
                 return;
             }
+        }
+
+        // checkPointBeforeAndAfterOperator function
+        checkPointBeforeAndAfterOperator(valueStr);
+        if (!checkPointBeforeAndAfterOperator(valueStr)) {
+            return;
         }
 
         // limitPoints function
@@ -73,10 +79,31 @@ const blockFirstOperator = (valueStr) => {
     return true;
 };
 
-const blockSpamOperators = () => {
+const blockSpamOperators = (valueStr) => {
     const currentValue = displayEl.value;
+    const lastChair = currentValue[currentValue.length - 1];
+
+    if (operators.includes(lastChair)) {
+        displayEl.value = currentValue.slice(0, -1) + valueStr;
+    }
 
     if (operators.some(op => currentValue.includes(op))) {
+        return false;
+    }
+    return true;
+};
+
+const checkPointBeforeAndAfterOperator = (valueStr) => {
+    const currentValue = displayEl.value;
+    const lastChar = displayEl.value[currentValue.length - 1];
+
+    if (operators.includes(lastChar)) {
+        if (valueStr === '.') {
+            return false;
+        }
+        return true;
+    }
+    if (lastChar === '.' && operators.includes(valueStr)) {
         return false;
     }
     return true;
