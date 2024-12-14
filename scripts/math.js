@@ -32,6 +32,14 @@ buttonEls.forEach(button => {
             }
         }
 
+        // replaceAndLimitZero function
+        const currentValue = displayEl.value;
+        if (displayEl.value === '0' && valueStr === '0') {
+            return;
+        } else if (displayEl.value === '0' && ['1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(valueStr)) {
+            displayEl.value = currentValue.slice(0, -1);
+        }
+
         // calc function
         if (valueStr === '=') {
             const currentValue = displayEl.value;
@@ -78,6 +86,10 @@ const blockFirstOperator = (valueStr) => {
     }
     return true;
 };
+
+// const replaceAndLimitZero = () => {
+//
+// };
 
 const blockSpamOperators = (valueStr) => {
     const currentValue = displayEl.value;
