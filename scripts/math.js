@@ -2,8 +2,6 @@ const displayEl = document.querySelector('.display');
 const buttonEls = [...document.querySelectorAll('.button')];
 const cleanBtnEl = document.querySelector('.clean-btn');
 const operators = ['+', '-', '*', '/',];
-const point = ['.'];
-
 
 displayEl.addEventListener('keydown', (e) => {
     const allowedKeys = [
@@ -26,16 +24,16 @@ buttonEls.forEach(button => {
 
         const valueStr = button.innerText;
 
-        // Blocked first operator
+        // blockFirstOperation function
         if (!displayEl.value) {
-            if (operators.includes(valueStr) || point.includes(valueStr)) {
+            blockFirstOperator(valueStr);
+            if (!blockFirstOperator(valueStr)) {
                 return;
             }
         }
 
         // calc function
         if (valueStr === '=') {
-
             const currentValue = displayEl.value;
 
             const operator = operators.find(op => currentValue.includes(op));
@@ -46,11 +44,11 @@ buttonEls.forEach(button => {
             }
             return;
         }
-        const currentValue = displayEl.value;
 
-        // Blocked spam operator
+        // blockSpamOperators function
         if (operators.includes(valueStr)) {
-            if (operators.some(op => currentValue.includes(op))) {
+            blockSpamOperators();
+            if (!blockSpamOperators()) {
                 return;
             }
         }
@@ -58,18 +56,31 @@ buttonEls.forEach(button => {
         // limitPoints function
         if (button.innerText === '.') {
             limitPoints(button.innerText);
-            if (valueStr === '.') {
-                if (!limitPoints(valueStr)) {
-                    return;
-                }
+            if (!limitPoints(valueStr)) {
+                return;
             }
         }
 
         // Output value to display
         displayEl.value += valueStr;
-
     });
 });
+
+const blockFirstOperator = (valueStr) => {
+    if (operators.includes(valueStr) || valueStr === '.') {
+        return false;
+    }
+    return true;
+};
+
+const blockSpamOperators = () => {
+    const currentValue = displayEl.value;
+
+    if (operators.some(op => currentValue.includes(op))) {
+        return false;
+    }
+    return true;
+};
 
 const limitPoints = (point) => {
     const lastOperator = operators.find(op => displayEl.value.includes(op));
