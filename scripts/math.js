@@ -33,7 +33,7 @@ buttonEls.forEach(button => {
             }
         }
 
-        // Result
+        // calc function
         if (valueStr === '=') {
 
             const currentValue = displayEl.value;
@@ -55,26 +55,14 @@ buttonEls.forEach(button => {
             }
         }
 
-        // const newValueString = displayEl.value + valueStr;
-        // let lastOperator;
-        // if (operators.includes(button.innerText)) {
-        //     lastOperator = button.innerText;
-        // }
-        // if (lastOperator) {
-        //     const valuesBeforeOperator = newValueString.split(lastOperator);
-        //     const valuesAfterOperator = valuesBeforeOperator[2];
-        //     console.log(valuesAfterOperator);
-        //     console.log(valuesBeforeOperator);
-        // }
-        let lastOperator;
-        if (operators.includes(button.innerText)) {
-            lastOperator = button.innerText;
-        }
-
+        // limitPoints function
         if (button.innerText === '.') {
-            const numbers = displayEl.value.split(lastOperator);
-            const lastNumber = numbers[numbers.length - 1];
-            if (lastNumber.contains('.')) return;
+            limitPoints(button.innerText);
+            if (valueStr === '.') {
+                if (!limitPoints(valueStr)) {
+                    return;
+                }
+            }
         }
 
         // Output value to display
@@ -83,6 +71,16 @@ buttonEls.forEach(button => {
     });
 });
 
+const limitPoints = (point) => {
+    const lastOperator = operators.find(op => displayEl.value.includes(op));
+
+    const currentOperator = lastOperator ? displayEl.value.split(lastOperator).pop() : displayEl.value;
+
+    if (currentOperator.includes(point)) {
+        return false;
+    }
+    return true;
+};
 
 const calc = (firstValueStr, operator, secondValueStr) => {
 
