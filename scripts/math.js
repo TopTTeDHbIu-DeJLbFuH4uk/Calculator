@@ -33,16 +33,18 @@ buttonEls.forEach(button => {
         }
 
         // replaceAndLimitZero function
-        const currentValue = displayEl.value;
-        if (displayEl.value === '0' && valueStr === '0') {
+        if (!replaceAndLimitZero(valueStr)) {
             return;
-        } else if (displayEl.value === '0' && ['1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(valueStr)) {
-            displayEl.value = currentValue.slice(0, -1);
         }
 
         // calc function
         if (valueStr === '=') {
             const currentValue = displayEl.value;
+            const lastChar = displayEl.value[currentValue.length - 1];
+
+            if (lastChar === '.') {
+                return;
+            }
 
             const operator = operators.find(op => currentValue.includes(op));
 
@@ -62,7 +64,6 @@ buttonEls.forEach(button => {
         }
 
         // checkPointBeforeAndAfterOperator function
-        checkPointBeforeAndAfterOperator(valueStr);
         if (!checkPointBeforeAndAfterOperator(valueStr)) {
             return;
         }
@@ -87,9 +88,32 @@ const blockFirstOperator = (valueStr) => {
     return true;
 };
 
-// const replaceAndLimitZero = () => {
-//
-// };
+const replaceAndLimitZero = (valueStr) => {
+    const currentValue = displayEl.value;
+    const arrayNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    if (currentValue === '0' && valueStr === '0') {
+        return false;
+    } else if (currentValue === '0' && arrayNumbers.includes(valueStr)) {
+        displayEl.value = '';
+        return true;
+    }
+
+    const lastOperatorIndex = Math.max(
+        ...operators.map(op => currentValue.lastIndexOf(op))
+    );
+
+    const afterLastOperator = currentValue.slice(lastOperatorIndex + 1);
+
+    if (lastOperatorIndex !== -1) {
+        if (afterLastOperator === '0' && valueStr === '0') {
+            return false;
+        } else if (afterLastOperator === '0' && arrayNumbers.includes(valueStr)) {
+            displayEl.value = currentValue.slice(0, -1);
+        }
+    }
+    return true;
+};
 
 const blockSpamOperators = (valueStr) => {
     const currentValue = displayEl.value;
@@ -123,7 +147,6 @@ const checkPointBeforeAndAfterOperator = (valueStr) => {
 
 const limitPoints = (point) => {
     const lastOperator = operators.find(op => displayEl.value.includes(op));
-
     const currentOperator = lastOperator ? displayEl.value.split(lastOperator).pop() : displayEl.value;
 
     if (currentOperator.includes(point)) {
