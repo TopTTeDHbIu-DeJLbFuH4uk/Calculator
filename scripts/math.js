@@ -3,6 +3,15 @@ const buttonEls = [...document.querySelectorAll('.button')];
 const cleanBtnEl = document.querySelector('.clean-btn');
 const operators = ['+', '-', '*', '/',];
 
+const focusInput = () => {
+    displayEl.focus();
+};
+focusInput();
+
+window.addEventListener('click', () => {
+    focusInput();
+});
+
 displayEl.addEventListener('keydown', (e) => {
     const allowedKeys = [
         'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab',
@@ -18,8 +27,13 @@ displayEl.addEventListener('keydown', (e) => {
 buttonEls.forEach(button => {
     button.addEventListener('click', () => {
 
+        focusInput();
+
+        if (displayEl.value.includes('e')) {
+            displayEl.value = '';
+        }
         if (displayEl.value === 'Error') {
-            return;
+            displayEl.value = '';
         }
 
         const valueStr = button.innerText;
@@ -188,9 +202,15 @@ const calc = (firstValueStr, operator, secondValueStr) => {
 
     }
 
+    const res = result.toString();
+    if (res.includes('e')) {
+        displayEl.value = result;
+        return;
+    }
     displayEl.value = result;
 };
 
 cleanBtnEl.addEventListener('click', () => {
     displayEl.value = '';
+    focusInput();
 });
