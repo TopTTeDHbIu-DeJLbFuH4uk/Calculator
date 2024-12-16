@@ -13,15 +13,78 @@ window.addEventListener('click', () => {
 });
 
 displayEl.addEventListener('keydown', (e) => {
+
     const allowedKeys = [
         'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab',
-        '+', '-', '*', '/', '.',
+        '+', '-', '*', '/', '.'
     ];
 
-    if (!allowedKeys.includes(e.key) && !(e.key >= '0' && e.key <= '9')) {
+    if (e.key === ' ') {
         e.preventDefault();
     }
 
+    if (!allowedKeys.includes(e.key) && !(e.key >= 0 && e.key <= 9)) {
+        e.preventDefault();
+    }
+
+    const valueStr = e.key.toLowerCase();
+
+    if (displayEl.value.includes('Fuck')) {
+        displayEl.value = '';
+    }
+    if (displayEl.value.includes('e')) {
+        displayEl.value = '';
+    }
+    if (displayEl.value === 'Error') {
+        displayEl.value = '';
+    }
+
+    if (!displayEl.value) {
+        blockFirstPoint(valueStr);
+        if (!blockFirstPoint(valueStr)) {
+            e.preventDefault();
+        }
+    }
+
+    if (!checkPointBeforeAndAfterOperator(valueStr)) {
+        e.preventDefault();
+    }
+
+    if (valueStr === '.') {
+        limitPoints(valueStr);
+        if (!limitPoints(valueStr)) {
+            e.preventDefault();
+        }
+    }
+
+    if (!displayEl.value) {
+        blockFirstOperator(valueStr);
+        if (!blockFirstOperator(valueStr)) {
+            e.preventDefault();
+        }
+    }
+
+    if (operators.includes(valueStr)) {
+        blockSpamOperators();
+        if (!blockSpamOperators()) {
+            e.preventDefault();
+        }
+    }
+
+    if (!replaceAndLimitZero(valueStr)) {
+        e.preventDefault();
+    }
+
+    switch (valueStr) {
+        case 'delete':
+            clear();
+            break;
+        case 'enter':
+        case '=':
+            calc();
+            break;
+        default: return null;
+    }
 });
 
 buttonEls.forEach(button => {
@@ -29,6 +92,9 @@ buttonEls.forEach(button => {
 
         focusInput();
 
+        if (displayEl.value.includes('Fuck')) {
+            displayEl.value = '';
+        }
         if (displayEl.value.includes('e')) {
             displayEl.value = '';
         }
@@ -38,7 +104,13 @@ buttonEls.forEach(button => {
 
         const valueStr = button.innerText;
 
-        // blockFirstOperation function
+        if (!displayEl.value) {
+            blockFirstPoint(valueStr);
+            if (!blockFirstPoint(valueStr)) {
+                return;
+            }
+        }
+
         if (!displayEl.value) {
             blockFirstOperator(valueStr);
             if (!blockFirstOperator(valueStr)) {
@@ -46,43 +118,28 @@ buttonEls.forEach(button => {
             }
         }
 
-        // replaceAndLimitZero function
         if (!replaceAndLimitZero(valueStr)) {
             return;
         }
 
-        // calc function
         if (valueStr === '=') {
-            const currentValue = displayEl.value;
-            const lastChar = displayEl.value[currentValue.length - 1];
-
-            if (lastChar === '.') {
+            calc();
+            if (!calc()) {
                 return;
             }
-
-            const operator = operators.find(op => currentValue.includes(op));
-
-            if (operator) {
-                const [firstValueStr, secondValueStr] = currentValue.split(operator);
-                calc(firstValueStr, operator, secondValueStr);
-            }
-            return;
         }
 
-        // blockSpamOperators function
         if (operators.includes(valueStr)) {
-            blockSpamOperators(valueStr);
-            if (!blockSpamOperators(valueStr)) {
+            blockSpamOperators();
+            if (!blockSpamOperators()) {
                 return;
             }
         }
 
-        // checkPointBeforeAndAfterOperator function
         if (!checkPointBeforeAndAfterOperator(valueStr)) {
             return;
         }
 
-        // limitPoints function
         if (button.innerText === '.') {
             limitPoints(button.innerText);
             if (!limitPoints(valueStr)) {
@@ -90,13 +147,19 @@ buttonEls.forEach(button => {
             }
         }
 
-        // Output value to display
         displayEl.value += valueStr;
     });
 });
 
+const blockFirstPoint = (valueStr) => {
+    if (valueStr === '.') {
+        return false;
+    }
+    return true
+};
+
 const blockFirstOperator = (valueStr) => {
-    if (operators.includes(valueStr) || valueStr === '.') {
+    if (operators.includes(valueStr)) {
         return false;
     }
     return true;
@@ -113,9 +176,7 @@ const replaceAndLimitZero = (valueStr) => {
         return true;
     }
 
-    const lastOperatorIndex = Math.max(
-        ...operators.map(op => currentValue.lastIndexOf(op))
-    );
+    const lastOperatorIndex = Math.max(...operators.map(op => currentValue.lastIndexOf(op)));
 
     const afterLastOperator = currentValue.slice(lastOperatorIndex + 1);
 
@@ -129,12 +190,12 @@ const replaceAndLimitZero = (valueStr) => {
     return true;
 };
 
-const blockSpamOperators = (valueStr) => {
+const blockSpamOperators = () => {
     const currentValue = displayEl.value;
     const lastChair = currentValue[currentValue.length - 1];
 
     if (operators.includes(lastChair)) {
-        displayEl.value = currentValue.slice(0, -1) + valueStr;
+        displayEl.value = currentValue.slice(0, -1);
     }
 
     if (operators.some(op => currentValue.includes(op))) {
@@ -169,36 +230,49 @@ const limitPoints = (point) => {
     return true;
 };
 
-const calc = (firstValueStr, operator, secondValueStr) => {
+const calc = () => {
 
-    const firstValue = parseFloat(firstValueStr);
-    const secondValue = parseFloat(secondValueStr);
+    const currentValue = displayEl.value;
+    const lastChar = displayEl.value[currentValue.length - 1];
+
+    if (lastChar === '.') {
+        return false;
+    }
+
+    const operator = operators.find(op => currentValue.includes(op));
+    const [firstValueStr, secondValueStr] = currentValue.split(operator);
+
+    const firstNumber = parseFloat(firstValueStr);
+    const secondNumber = parseFloat(secondValueStr);
 
     let result;
 
-    if (isNaN(secondValue)) {
+    if (isNaN(secondNumber)) {
         return;
     }
 
     switch (operator) {
         case '+':
-            result = firstValue + secondValue;
+            result = firstNumber + secondNumber;
             break;
         case '-':
-            result = firstValue - secondValue;
+            result = firstNumber - secondNumber;
+            if (0 > result) {
+                displayEl.value = 'Fuck';
+                return;
+            }
             break;
         case '*':
-            result = firstValue * secondValue;
+            result = firstNumber * secondNumber;
             break;
         case '/':
-            if (secondValue === 0) {
+            if (secondNumber === 0) {
                 displayEl.value = 'Error';
                 return;
             }
-            result = firstValue / secondValue;
+            result = firstNumber / secondNumber;
             break;
-        default:
-            displayEl.value = 'Error';
+        default: displayEl.value = 'Error';
 
     }
 
@@ -214,3 +288,7 @@ cleanBtnEl.addEventListener('click', () => {
     displayEl.value = '';
     focusInput();
 });
+
+const clear = () => {
+    displayEl.value = '';
+}
