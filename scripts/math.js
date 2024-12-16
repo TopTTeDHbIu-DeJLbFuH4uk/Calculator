@@ -302,6 +302,7 @@ cleanBtnEl.addEventListener('mousedown', (e) => {
     };
 
     cleanBtnEl.addEventListener('mouseup', clearTime);
+    window.addEventListener('mouseup', clearTime);
 });
 
 const deleteLastCharacter = () => {
