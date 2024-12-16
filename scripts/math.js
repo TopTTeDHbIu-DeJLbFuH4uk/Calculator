@@ -83,7 +83,8 @@ displayEl.addEventListener('keydown', (e) => {
         case '=':
             calc();
             break;
-        default: return null;
+        default:
+            return null;
     }
 });
 
@@ -272,7 +273,8 @@ const calc = () => {
             }
             result = firstNumber / secondNumber;
             break;
-        default: displayEl.value = 'Error';
+        default:
+            displayEl.value = 'Error';
 
     }
 
@@ -286,13 +288,20 @@ const calc = () => {
 
 cleanBtnEl.addEventListener('mousedown', (e) => {
     deleteLastCharacter();
+    let clearIntervalId;
 
-    setTimeout(() => {
-       const clearIntervalId = setInterval(() => {
-           clear();
-           clearInterval(clearIntervalId);
-       }, 100);
+    const clearTimeoutId = setTimeout(() => {
+        clearIntervalId = setInterval(() => {
+            deleteLastCharacter();
+        }, 50);
     }, 500);
+
+    const clearTime = () => {
+        clearTimeout(clearTimeoutId);
+        clearInterval(clearIntervalId);
+    };
+
+    cleanBtnEl.addEventListener('mouseup', clearTime);
 });
 
 const deleteLastCharacter = () => {
