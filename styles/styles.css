@@ -205,18 +205,6 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 24px;
 }
 
-.clean-one-symbol {
-    width: 60px;
-
-    background-color: var(--btn-footer);
-    transition: .2s linear;
-    border: none;
-    border-radius: 6px;
-
-    color: var(--text-primary-light);
-    font-size: 25px;
-}
-
 /* Mobile */
 @media screen and (max-width: 768px) {
 

@@ -284,10 +284,28 @@ const calc = () => {
     displayEl.value = result;
 };
 
-cleanBtnEl.addEventListener('click', () => {
-    displayEl.value = '';
-    focusInput();
+cleanBtnEl.addEventListener('mousedown', (e) => {
+    deleteLastCharacter();
+
+    setTimeout(() => {
+       const clearIntervalId = setInterval(() => {
+           clear();
+           clearInterval(clearIntervalId);
+       }, 100);
+    }, 500);
 });
+
+const deleteLastCharacter = () => {
+    const currentValue = displayEl.value;
+    const cursorPosition = displayEl.selectionStart;
+
+    if (cursorPosition === 0) {
+        return;
+    } else {
+        displayEl.value = currentValue.slice(0, cursorPosition - 1) + currentValue.slice(cursorPosition);
+    }
+    displayEl.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+}
 
 const clear = () => {
     displayEl.value = '';
