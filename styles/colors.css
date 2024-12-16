@@ -13,7 +13,7 @@
     --btn-footer: #272424;
     --btn-footer-hover: #1c1919;
 
-    --text-placeholder: #555857;
+    --text-placeholder: #ffffff;
     --text-primary: #ffffff;
     --text-primary-light: #ffffff;
 
@@ -31,5 +31,6 @@
     --background-btn: #ffffff;
     --background-btn-hover: #d2faf8;
 
+    --text-placeholder: #555857;
     --text-primary: #2f3332;
 }

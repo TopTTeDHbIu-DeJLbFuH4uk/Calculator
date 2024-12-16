@@ -1,7 +1,7 @@
 const displayEl = document.querySelector('.display');
 const buttonEls = [...document.querySelectorAll('.button')];
 const cleanBtnEl = document.querySelector('.clean-btn');
-const operators = ['+', '-', '*', '/',];
+const operators = ['+', '-', '*', '/'];
 
 const focusInput = () => {
     displayEl.focus();
