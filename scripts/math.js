@@ -16,7 +16,7 @@ displayEl.addEventListener('keydown', (e) => {
 
     const allowedKeys = [
         'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab',
-        '+', '-', '*', '/', '.'
+        '+', '-', '*', '/', '.', ',', 'F5', 'F12',
     ];
 
     if (e.key === ' ') {
@@ -27,11 +27,13 @@ displayEl.addEventListener('keydown', (e) => {
         e.preventDefault();
     }
 
-    const valueStr = e.key.toLowerCase();
+    let valueStr = e.key.toLowerCase();
 
-    if (displayEl.value.includes('Fuck')) {
-        displayEl.value = '';
+    if (valueStr === ',') {
+        valueStr = valueStr.replace(',', '.');
+        displayEl.value = displayEl.value.replace(',', '.') + valueStr;
     }
+
     if (displayEl.value.includes('e')) {
         displayEl.value = '';
     }
@@ -91,11 +93,6 @@ displayEl.addEventListener('keydown', (e) => {
 buttonEls.forEach(button => {
     button.addEventListener('click', () => {
 
-        focusInput();
-
-        if (displayEl.value.includes('Fuck')) {
-            displayEl.value = '';
-        }
         if (displayEl.value.includes('e')) {
             displayEl.value = '';
         }
@@ -153,6 +150,7 @@ buttonEls.forEach(button => {
 });
 
 const blockFirstPoint = (valueStr) => {
+    console.log(valueStr);
     if (valueStr === '.') {
         return false;
     }
@@ -207,7 +205,7 @@ const blockSpamOperators = () => {
 
 const checkPointBeforeAndAfterOperator = (valueStr) => {
     const currentValue = displayEl.value;
-    const lastChar = displayEl.value[currentValue.length - 1];
+    let lastChar = displayEl.value[currentValue.length - 1];
 
     if (operators.includes(lastChar)) {
         if (valueStr === '.') {
@@ -259,7 +257,7 @@ const calc = () => {
         case '-':
             result = firstNumber - secondNumber;
             if (0 > result) {
-                displayEl.value = 'Fuck';
+                displayEl.value = 'Error';
                 return;
             }
             break;
@@ -283,10 +281,10 @@ const calc = () => {
         displayEl.value = result;
         return;
     }
-    displayEl.value = result;
+    displayEl.value = Math.round(result * 100_000_000) / 100_000_000;
 };
 
-cleanBtnEl.addEventListener('mousedown', (e) => {
+cleanBtnEl.addEventListener('pointerdown', () => {
     deleteLastCharacter();
     let clearIntervalId;
 
@@ -301,8 +299,8 @@ cleanBtnEl.addEventListener('mousedown', (e) => {
         clearInterval(clearIntervalId);
     };
 
-    cleanBtnEl.addEventListener('mouseup', clearTime);
-    window.addEventListener('mouseup', clearTime);
+    cleanBtnEl.addEventListener('pointerup', clearTime);
+    window.addEventListener('pointerup', clearTime);
 });
 
 const deleteLastCharacter = () => {
@@ -315,8 +313,8 @@ const deleteLastCharacter = () => {
         displayEl.value = currentValue.slice(0, cursorPosition - 1) + currentValue.slice(cursorPosition);
     }
     displayEl.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
-}
+};
 
 const clear = () => {
     displayEl.value = '';
-}
+};
