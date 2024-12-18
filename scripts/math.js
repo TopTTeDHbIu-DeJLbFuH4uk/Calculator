@@ -3,81 +3,49 @@ const buttonEls = [...document.querySelectorAll('.button')];
 const cleanBtnEl = document.querySelector('.clean-btn');
 const operators = ['+', '-', '*', '/'];
 
-const focusInput = () => {
-    displayEl.focus();
-};
+const focusInput = () => displayEl.focus();
 focusInput();
 
-window.addEventListener('click', () => {
-    focusInput();
-});
+window.addEventListener('click', () => focusInput());
 
 displayEl.addEventListener('keydown', (e) => {
 
-    const allowedKeys = [
-        'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab',
-        '+', '-', '*', '/', '.', ',', 'F5', 'F12',
-    ];
+    if (e.key === ' ') e.preventDefault();
+    if (displayEl.value.includes('e') || displayEl.value === 'Error') displayEl.value = '';
 
-    if (e.key === ' ') {
-        e.preventDefault();
-    }
+    const key = e.key.toLowerCase();
 
-    if (!allowedKeys.includes(e.key) && !(e.key >= 0 && e.key <= 9)) {
-        e.preventDefault();
-    }
-
-    let valueStr = e.key.toLowerCase();
-
-    if (valueStr === ',') {
-        valueStr = valueStr.replace(',', '.');
-        displayEl.value = displayEl.value.replace(',', '.') + valueStr;
-    }
-
-    if (displayEl.value.includes('e')) {
-        displayEl.value = '';
-    }
-    if (displayEl.value === 'Error') {
-        displayEl.value = '';
-    }
+    handlerKey(key);
+    if (!handlerKey(key)) e.preventDefault();
+    const valueStr = key;
 
     if (!displayEl.value) {
         blockFirstPoint(valueStr);
-        if (!blockFirstPoint(valueStr)) {
-            e.preventDefault();
-        }
+        if (!blockFirstPoint(valueStr)) e.preventDefault();
     }
 
-    if (!checkPointBeforeAndAfterOperator(valueStr)) {
-        e.preventDefault();
-    }
+    if (!checkPointBeforeAndAfterOperator(valueStr)) e.preventDefault();
 
     if (valueStr === '.') {
         limitPoints(valueStr);
-        if (!limitPoints(valueStr)) {
-            e.preventDefault();
-        }
+        if (!limitPoints(valueStr)) e.preventDefault();
     }
 
     if (!displayEl.value) {
         blockFirstOperator(valueStr);
-        if (!blockFirstOperator(valueStr)) {
-            e.preventDefault();
-        }
+        if (!blockFirstOperator(valueStr)) e.preventDefault();
     }
 
     if (operators.includes(valueStr)) {
         blockSpamOperators();
-        if (!blockSpamOperators()) {
-            e.preventDefault();
-        }
+        if (!blockSpamOperators()) e.preventDefault();
     }
 
-    if (!replaceAndLimitZero(valueStr)) {
-        e.preventDefault();
-    }
+    if (!replaceAndLimitZero(valueStr)) e.preventDefault();
+});
 
-    switch (valueStr) {
+const handlerKey = (key) => {
+    switch (key) {
         case 'delete':
             clear();
             break;
@@ -85,64 +53,70 @@ displayEl.addEventListener('keydown', (e) => {
         case '=':
             calc();
             break;
+        case ',':
+        case 'б':
+        case 'ю':
+            return false;
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '.':
+        case 'backspace':
+        case 'delete':
+        case 'tab':
+        case 'arrowleft':
+        case 'arrowright':
+            return true;
         default:
-            return null;
+            return false;
     }
-});
+};
 
 buttonEls.forEach(button => {
     button.addEventListener('click', () => {
 
-        if (displayEl.value.includes('e')) {
-            displayEl.value = '';
-        }
-        if (displayEl.value === 'Error') {
-            displayEl.value = '';
-        }
+        if (displayEl.value.includes('e') || displayEl.value === 'Error') displayEl.value = '';
 
         const valueStr = button.innerText;
 
         if (!displayEl.value) {
             blockFirstPoint(valueStr);
-            if (!blockFirstPoint(valueStr)) {
-                return;
-            }
+            if (!blockFirstPoint(valueStr)) return;
         }
 
         if (!displayEl.value) {
             blockFirstOperator(valueStr);
-            if (!blockFirstOperator(valueStr)) {
-                return;
-            }
+            if (!blockFirstOperator(valueStr)) return;
         }
 
-        if (!replaceAndLimitZero(valueStr)) {
-            return;
-        }
+        if (!replaceAndLimitZero(valueStr)) return;
 
         if (valueStr === '=') {
             calc();
-            if (!calc()) {
-                return;
-            }
+            if (!calc()) return;
         }
 
         if (operators.includes(valueStr)) {
             blockSpamOperators();
-            if (!blockSpamOperators()) {
-                return;
-            }
+            if (!blockSpamOperators()) return;
         }
 
-        if (!checkPointBeforeAndAfterOperator(valueStr)) {
-            return;
-        }
+        if (!checkPointBeforeAndAfterOperator(valueStr)) return;
 
         if (button.innerText === '.') {
             limitPoints(button.innerText);
-            if (!limitPoints(valueStr)) {
-                return;
-            }
+            if (!limitPoints(valueStr)) return;
         }
 
         displayEl.value += valueStr;
@@ -150,17 +124,12 @@ buttonEls.forEach(button => {
 });
 
 const blockFirstPoint = (valueStr) => {
-    console.log(valueStr);
-    if (valueStr === '.') {
-        return false;
-    }
-    return true
+    if (valueStr === '.') return false;
+    return true;
 };
 
 const blockFirstOperator = (valueStr) => {
-    if (operators.includes(valueStr)) {
-        return false;
-    }
+    if (operators.includes(valueStr)) return false;
     return true;
 };
 
@@ -193,13 +162,9 @@ const blockSpamOperators = () => {
     const currentValue = displayEl.value;
     const lastChair = currentValue[currentValue.length - 1];
 
-    if (operators.includes(lastChair)) {
-        displayEl.value = currentValue.slice(0, -1);
-    }
+    if (operators.includes(lastChair)) displayEl.value = currentValue.slice(0, -1);
 
-    if (operators.some(op => currentValue.includes(op))) {
-        return false;
-    }
+    if (operators.some(op => currentValue.includes(op))) return false;
     return true;
 };
 
@@ -208,14 +173,10 @@ const checkPointBeforeAndAfterOperator = (valueStr) => {
     let lastChar = displayEl.value[currentValue.length - 1];
 
     if (operators.includes(lastChar)) {
-        if (valueStr === '.') {
-            return false;
-        }
+        if (valueStr === '.') return false;
         return true;
     }
-    if (lastChar === '.' && operators.includes(valueStr)) {
-        return false;
-    }
+    if (lastChar === '.' && operators.includes(valueStr)) return false;
     return true;
 };
 
@@ -223,9 +184,7 @@ const limitPoints = (point) => {
     const lastOperator = operators.find(op => displayEl.value.includes(op));
     const currentOperator = lastOperator ? displayEl.value.split(lastOperator).pop() : displayEl.value;
 
-    if (currentOperator.includes(point)) {
-        return false;
-    }
+    if (currentOperator.includes(point)) return false;
     return true;
 };
 
@@ -234,9 +193,7 @@ const calc = () => {
     const currentValue = displayEl.value;
     const lastChar = displayEl.value[currentValue.length - 1];
 
-    if (lastChar === '.') {
-        return false;
-    }
+    if (lastChar === '.') return false;
 
     const operator = operators.find(op => currentValue.includes(op));
     const [firstValueStr, secondValueStr] = currentValue.split(operator);
@@ -246,9 +203,7 @@ const calc = () => {
 
     let result;
 
-    if (isNaN(secondNumber)) {
-        return;
-    }
+    if (isNaN(secondNumber)) return;
 
     switch (operator) {
         case '+':
@@ -273,7 +228,6 @@ const calc = () => {
             break;
         default:
             displayEl.value = 'Error';
-
     }
 
     const res = result.toString();
@@ -315,6 +269,4 @@ const deleteLastCharacter = () => {
     displayEl.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
 };
 
-const clear = () => {
-    displayEl.value = '';
-};
+const clear = () => displayEl.value = '';
