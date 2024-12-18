@@ -14,49 +14,47 @@ displayEl.addEventListener('keydown', (e) => {
     if (displayEl.value.includes('e') || displayEl.value === 'Error') displayEl.value = '';
 
     const key = e.key.toLowerCase();
+    let valueStr = handlerKey(key);
+    // console.log(valueStr); // ТОЧКА
 
-    handlerKey(key);
-    if (!handlerKey(key)) e.preventDefault();
-    const valueStr = key;
-
+    // console.log(!displayEl.value); // FALSE
     if (!displayEl.value) {
-        blockFirstPoint(valueStr);
         if (!blockFirstPoint(valueStr)) e.preventDefault();
     }
 
     if (!checkPointBeforeAndAfterOperator(valueStr)) e.preventDefault();
 
     if (valueStr === '.') {
-        limitPoints(valueStr);
         if (!limitPoints(valueStr)) e.preventDefault();
     }
 
     if (!displayEl.value) {
-        blockFirstOperator(valueStr);
         if (!blockFirstOperator(valueStr)) e.preventDefault();
     }
 
     if (operators.includes(valueStr)) {
-        blockSpamOperators();
-        if (!blockSpamOperators()) e.preventDefault();
+        if (!blockSpamOperators(valueStr)) e.preventDefault();
     }
 
     if (!replaceAndLimitZero(valueStr)) e.preventDefault();
+
+    if (valueStr === 'delete') clear();
+
+    if (valueStr === 'enter' || valueStr === '=') calc();
 });
 
 const handlerKey = (key) => {
     switch (key) {
-        case 'delete':
-            clear();
-            break;
+        case 'f5':
+        case 'f12':
+            return key;
         case 'enter':
-        case '=':
-            calc();
-            break;
+            return '=';
         case ',':
         case 'б':
         case 'ю':
-            return false;
+            displayEl.value += '.';
+            return '.';
         case '0':
         case '1':
         case '2':
@@ -77,9 +75,10 @@ const handlerKey = (key) => {
         case 'tab':
         case 'arrowleft':
         case 'arrowright':
-            return true;
+        case 'delete':
+            return key;
         default:
-            return false;
+            return null;
     }
 };
 
@@ -91,31 +90,26 @@ buttonEls.forEach(button => {
         const valueStr = button.innerText;
 
         if (!displayEl.value) {
-            blockFirstPoint(valueStr);
             if (!blockFirstPoint(valueStr)) return;
         }
 
         if (!displayEl.value) {
-            blockFirstOperator(valueStr);
             if (!blockFirstOperator(valueStr)) return;
         }
 
         if (!replaceAndLimitZero(valueStr)) return;
 
         if (valueStr === '=') {
-            calc();
             if (!calc()) return;
         }
 
         if (operators.includes(valueStr)) {
-            blockSpamOperators();
-            if (!blockSpamOperators()) return;
+            if (!blockSpamOperators(valueStr)) return;
         }
 
         if (!checkPointBeforeAndAfterOperator(valueStr)) return;
 
         if (button.innerText === '.') {
-            limitPoints(button.innerText);
             if (!limitPoints(valueStr)) return;
         }
 
@@ -158,11 +152,11 @@ const replaceAndLimitZero = (valueStr) => {
     return true;
 };
 
-const blockSpamOperators = () => {
+const blockSpamOperators = (valueStr) => {
     const currentValue = displayEl.value;
     const lastChair = currentValue[currentValue.length - 1];
 
-    if (operators.includes(lastChair)) displayEl.value = currentValue.slice(0, -1);
+    if (operators.includes(lastChair)) displayEl.value = currentValue.slice(0, -1) + valueStr;
 
     if (operators.some(op => currentValue.includes(op))) return false;
     return true;
