@@ -31,6 +31,8 @@ buttonEls.forEach(button => {
 const inputHandler = (e) => {
     const valueStr = getInputValue(e);
 
+    if (displayEl.value === 'Error' || displayEl.value.includes('e')) displayEl.value = '';
+
     if (valueStr === null) return;
 
     if (!displayEl.value) {
