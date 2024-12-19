@@ -8,52 +8,72 @@ focusInput();
 
 window.addEventListener('click', () => focusInput());
 
-displayEl.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', e => {
+    switch (e.key) {
+        case 'F5':
+        case 'F12':
+        case 'ArrowRight':
+        case 'ArrowLeft':
+        case 'Backspace':
+            return;
+        default:
+            e.preventDefault();
+            inputHandler(e);
+    }
+});
 
-    if (e.key === ' ') e.preventDefault();
-    if (displayEl.value.includes('e') || displayEl.value === 'Error') displayEl.value = '';
+buttonEls.forEach(button => {
+    button.addEventListener('click', e => {
+        inputHandler(e);
+    });
+});
 
-    const key = e.key.toLowerCase();
-    let valueStr = handlerKey(key);
-    // console.log(valueStr); // ТОЧКА
+const inputHandler = (e) => {
+    const valueStr = getInputValue(e);
 
-    // console.log(!displayEl.value); // FALSE
+    if (valueStr === null) return;
+
     if (!displayEl.value) {
-        if (!blockFirstPoint(valueStr)) e.preventDefault();
+        if (!blockFirstPoint(valueStr)) return;
     }
 
-    if (!checkPointBeforeAndAfterOperator(valueStr)) e.preventDefault();
+    if (!checkPointBeforeAndAfterOperator(valueStr)) return;
 
     if (valueStr === '.') {
-        if (!limitPoints(valueStr)) e.preventDefault();
+        if (!limitPoints(valueStr)) return;
     }
 
     if (!displayEl.value) {
-        if (!blockFirstOperator(valueStr)) e.preventDefault();
+        if (!blockFirstOperator(valueStr)) return;
     }
 
     if (operators.includes(valueStr)) {
-        if (!blockSpamOperators(valueStr)) e.preventDefault();
+        if (!blockSpamOperators(valueStr)) return;
     }
 
-    if (!replaceAndLimitZero(valueStr)) e.preventDefault();
+    if (!replaceAndLimitZero(valueStr)) return;
 
-    if (valueStr === 'delete') clear();
+    if (valueStr === 'delete') {
+        if(!clear()) return;
+    }
 
-    if (valueStr === 'enter' || valueStr === '=') calc();
-});
+    if (valueStr === '=') {
+        if(!calc()) return;
+    }
 
-const handlerKey = (key) => {
+    displayEl.value += valueStr;
+}
+
+const getInputValue = e => {
+    if (e.type === 'click') return e.target.innerText;
+    const key = e.key.toLowerCase();
     switch (key) {
-        case 'f5':
-        case 'f12':
-            return key;
         case 'enter':
+        case '=':
             return '=';
         case ',':
         case 'б':
         case 'ю':
-            displayEl.value += '.';
             return '.';
         case '0':
         case '1':
@@ -70,11 +90,6 @@ const handlerKey = (key) => {
         case '*':
         case '/':
         case '.':
-        case 'backspace':
-        case 'delete':
-        case 'tab':
-        case 'arrowleft':
-        case 'arrowright':
         case 'delete':
             return key;
         default:
@@ -82,47 +97,13 @@ const handlerKey = (key) => {
     }
 };
 
-buttonEls.forEach(button => {
-    button.addEventListener('click', () => {
-
-        if (displayEl.value.includes('e') || displayEl.value === 'Error') displayEl.value = '';
-
-        const valueStr = button.innerText;
-
-        if (!displayEl.value) {
-            if (!blockFirstPoint(valueStr)) return;
-        }
-
-        if (!displayEl.value) {
-            if (!blockFirstOperator(valueStr)) return;
-        }
-
-        if (!replaceAndLimitZero(valueStr)) return;
-
-        if (valueStr === '=') {
-            if (!calc()) return;
-        }
-
-        if (operators.includes(valueStr)) {
-            if (!blockSpamOperators(valueStr)) return;
-        }
-
-        if (!checkPointBeforeAndAfterOperator(valueStr)) return;
-
-        if (button.innerText === '.') {
-            if (!limitPoints(valueStr)) return;
-        }
-
-        displayEl.value += valueStr;
-    });
-});
-
 const blockFirstPoint = (valueStr) => {
     if (valueStr === '.') return false;
     return true;
 };
 
 const blockFirstOperator = (valueStr) => {
+
     if (operators.includes(valueStr)) return false;
     return true;
 };
@@ -263,4 +244,8 @@ const deleteLastCharacter = () => {
     displayEl.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
 };
 
-const clear = () => displayEl.value = '';
+const clear = () => {
+    displayEl.value = '';
+    if (!displayEl.value) return false;
+    return true;
+}
